@@ -1,0 +1,14 @@
+{
+  "name": "getfitnews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "GetNewsApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fitapp"
+  ],
+  "author": "TarekTarho",
+  "license": "ISC"
+}
