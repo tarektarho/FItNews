@@ -19,12 +19,16 @@ There are two backend processes:
 
 1) A user webapp that communicates with the frontend using JSON to display articles
   - This app supports two HTTP verbs:
+  
   1) GET - to get articles from the database
+  
   2) POST - to add articles to the database
+  
   3) PUT - to update articles in the database (optional until we know if we need to update articles)
 
 2) A background webapp that requests new articles from the selected sources and if they are appropriate adds them to the database
   - This app is responsible for:
+  
    1) Getting news from our news API 
    
    2) Checking if there is new news
