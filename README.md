@@ -26,8 +26,11 @@ There are two backend processes:
 2) A background webapp that requests new articles from the selected sources and if they are appropriate adds them to the database
   - This app is responsible for:
    1) Getting news from our news API 
+   
    2) Checking if there is new news
+   
    3) Check if the news is fitness news 
+   
    4) If fitness news then `POST` to our user webapp to add the article
    
 ### Project plan
