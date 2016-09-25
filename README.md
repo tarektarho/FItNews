@@ -24,7 +24,12 @@ There are two backend processes:
   3) PUT - to update articles in the database (optional until we know if we need to update articles)
 
 2) A background webapp that requests new articles from the selected sources and if they are appropriate adds them to the database
-
+  - This app is responsible for:
+   1) Getting news from our news API 
+   2) Checking if there is new news
+   3) Check if the news is fitness news 
+   4) If fitness news then `POST` to our user webapp to add the article
+   
 ### Project plan
 1) We start with a prototype to demonstrate functionality using ONE news source and building all parts of the application except the front end which will start as plain text. 
 2) Create database to hold news articles and define functions to `INSERT` data and to `SELECT` (get, fetch, query) the articles
