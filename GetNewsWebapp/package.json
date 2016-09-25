@@ -1,14 +1,15 @@
 {
-  "name": "getnewswebapp",
+
+  "name": "getfitnews",
   "version": "1.0.0",
-  "description": "it's give the newest fit news",
+   "description": "it's give the newest fit news",
   "main": "GetNewsApp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "finesapp"
+    "fitapp"
   ],
-  "author": "manarattar",
+  "author": "Tarek Tarho and manarattar",
   "license": "ISC"
 }
