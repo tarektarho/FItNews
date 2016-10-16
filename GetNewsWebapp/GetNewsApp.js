@@ -17,7 +17,9 @@ var req = http.get(options, function(res) {
     bodyChunks.push(chunk);
   }).on('end', function() {
     var body = Buffer.concat(bodyChunks);
-    console.log('BODY: ' + body);
+    var json =JSON.parse(body);
+    console.log('Title: ' + json.articles[0].title);
+     console.log('Description: ' + json.articles[0].description);
     // ...and/or process the entire body here.
   })
 });
@@ -26,8 +28,14 @@ var req = http.get(options, function(res) {
   console.log('ERROR: ' + e.message);
 });
 }
-function DecideFitnessNews(body){
-	console.log(body)
+
+function isSportnews( artical ){
+ var MyFilter = ["football","soccer","championship","champions","playoff","league"];
+  for (var i = 0; i < MyFilter.length; i++){
+    console.log(MyFilter[i]);
+  }
+
+
 
 
 }
@@ -35,11 +43,13 @@ function DecideFitnessNews(body){
 
 
 
+
 var CronJob = require('cron').CronJob;
-var job = new CronJob('10 * *  * * *', function() {
+var job = new CronJob('*/5 * *  * * *', function() {
       console.log('GetNews');
        GetNews();
-       DecideFitnessNews();
+       isSportnews( "artical" );
+
 
     }, function () {
           /* This function is executed when the job stops */

@@ -9,6 +9,13 @@
   "keywords": [
     "fitapp"
   ],
+  "dependencies":{
+    "express":"*",
+    "body-parser":"*",
+    "mongodb":"*",
+    "fs":"*",
+    "mongoose":"*"
+  },
   "author": "TarekTarho and ManarAttar",
   "license": "ISC"
 }
