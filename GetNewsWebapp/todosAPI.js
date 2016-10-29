@@ -1,22 +1,28 @@
+
 var todosAPI = {
 
-    getTodos: function(collection, document, callback) {
-        db.todosdata.find().toArray(function(err, result) {
+    getNewsapp: function(collection, document, callback ) {
+
+
+
+        collection.find().toArray(function(err, result) {
             if (err) {
                 console.log(err);
-                callback('Error getting todos', null);
+                callback('Error getting newsapp', null);
             } else if (result.length) {
                 console.log('Found:', result);
                 callback(null, result);
             } else {
                 console.log('No document(s) found with defined "find" criteria!');
             }
-        })
-    }
-},
-insertTodo: function(connection, insertItem, callback) {
+        });
+    },
 
-        db.collection('todosdata').insert(insertItem,function(err) {
+
+
+    insertNewsapp: function(collection, insertItem, callback) {
+
+        collection.insert(insertItem,function(err) {
             if (!err) {
                 callback(null);
 
@@ -25,10 +31,11 @@ insertTodo: function(connection, insertItem, callback) {
                 callback(null);
             }
             
-},
+        });
+    },
 
-updateTodo: function(connection, updateItem,id, callback) {
-  db.collection('todosdata').update(updateItem, function(err) {
+    updateNewsapp: function(collection, updateItem,id, callback) {
+      collection.update(updateItem, function(err) {
         if (!err) {
             callback(null);
 
@@ -37,19 +44,28 @@ updateTodo: function(connection, updateItem,id, callback) {
             callback(null);
         }
     });
-},
+  },
 
-deleteTodo: function(connection, id, callback) {
-    if (id) {
-      db.collection('todosdata').deleteOne(deleteItem, function(err) {
-            if (!err) {
-                callback(null);
-            } else {
-                console.warn('Error in deleteTodo');
-                callback(null);
-            }
-        });
-    }
+  deleteNewsapp: function(collection, id, callback) {
+
+         var item = collection.findOne({ '_id': id});
+         console.log(item);
+    
+            collection.removeOne( { _id: item._id } , function(err,result) {
+                collection.save();
+               
+
+                if (!err) {
+                    callback(null);
+                } else {
+                    console.warn('Error in deleteTodo');
+                    callback(null);
+
+                }
+            });
+        
+
+    
 
 }
 };

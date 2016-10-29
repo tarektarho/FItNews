@@ -1,73 +1,124 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var fs = require('fs');
+var mongo = require('mongodb').MongoClient;
+var todosAPI = require('../GetNewsWebapp/todosAPI').todosAPI;
+var db;
+
+
+var app = express();
+
+
+var collection = null; 
+mongo.connect('mongodb://localhost:27017/newsapp', function(err, db) {
+    if (!err) {
+
+        collection = db.collection('news');
+        console.log('Database is connected ...');
+    } else {
+        console.warn('Error connecting database ...');
+    }
+
+});
+
+
+
+
+console.log(collection);
 
 app.use(bodyParser.json());
 
 
-News = require('./Article');
+app.get('/newsapp', function(request, response) {
+    var id = request.params.id;
 
-// Connect to Mongoose
-mongoose.connect('mongodb://localhost/newsApp');
-var db = mongoose.connection;
+    var rows = todosAPI.getNewsapp(collection, id,   function(err, documents) {
+        if (!err) {
+            console.log('Documents received by get: ', documents);
+            response.json(documents);
+            response.end();
+        } else {
+            console.warn('Error in GET');
+        }
+    });
 
-app.get('/', function(req, res){
-	res.send('Hello Tarek');
 });
 
+// Insert a todo
+app.post('/newsapp', function(request, response) {
 
 
-app.get('/api/article', function(req, res){
-	News.getNews(function(err, news){
-		if (err) {
-			throw err;
+    var insertItem = request.body;
 
+    console.log("The body is: ", insertItem, request);
+    if (!insertItem.name) return response.status(404).end();
+
+
+
+      var inserted = todosAPI.insertNewsapp(collection,insertItem, function(err, documents) {
+        if (!err) {
+            console.log('Documents Insert by post' , documents);
+            response.json(documents);
+          response.end();
+      } else{
+            console.warn('Error in POST');
+      }
+        
+      });
+
+});
+
+// Delete  news
+app.delete('/newsapp/:id', function(request,response){
+	var ItemId = request.params.id;
+	
+	if (!ItemId) return response.status(404).end();
+	todosAPI.deleteNewsapp(collection, ItemId, function(err, Item){
+		if (!err) {
+			console.log('item Delete', ItemId)
+			response.status(200).end();
+
+
+		} else{
+			console.log("Delete Error");
+			response.end();
 		}
-
-		res.json(news);
-
 	})
 
-});
 
-app.get('/api/article/:_id', function(req, res){
-	News.getNewsById(req.params._id,function(err, news){
-		if (err) {
-			throw err;
+})
 
-		}
-		res.json(news);
-	})
+// Update a todo
+app.put('/newsapp/:id', function(request, response) {
+    var updateItem = request.body;
+    var updateId = request.params.id; 
+    console.log("Tring to updet:",updateItem);
 
-});
+   
+    var updateFunction = todosAPI.updateNewsapp(collection, updateItem, updateId, function(err, documents) {
+        if (!err){
+            console.log('documents updet',documents);
+            response.json(documents);
+        response.end();
 
-app.post('/api/article', function(req, res){
-	var news = req.body;
-	News.addNews(news, function(err, news){
-		if (err) {
-			throw err;
+        } else{
+            console.warn('Error in updet');
+            response.end();
+        }
 
-		}
-		res.json(news);
-	})
-
-});
-
-app.put('/api/article/:_id', function(req, res){
-	var id = req.params._id;
-	var user = req.body;
-	News.updateNews(id,news,{}, function(err, news){
-		if (err) {
-			throw err;
-
-		}
-		res.json(news);
-	})
-
+    });
 });
 
 
+function sendError(response, code, message) {
+    response.statusCode = code;
+    response.json({
+        error: message
+    });
+    response.end();
+}
 
+
+// Start the server.
 app.listen(8080);
 console.log('Running on port 8080...');
