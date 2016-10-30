@@ -1,13 +1,26 @@
 
-var http = require('http');
 var http = require('follow-redirects').http;
+var todosAPI = require('../GetNewsWebapp/todosAPI');
+
+var source = 'talksport';
+
 
 var options = {
   host: 'www.newsapi.org',
   path: '/v1/articles?source=talksport&sortBy=top&apiKey=2dee9ef71f004d17943268eaaa57e2a4'
+  ''
 
 };
-function GetNews(){
+function GetNews(api){
+
+if (source === 'talksport') {
+  source = 'bbc-sport';
+}
+else {
+  source = 'talksport';
+}
+
+options.path = '/v1/articles?source=' + source + '&sortBy=top&apiKey=2dee9ef71f004d17943268eaaa57e2a4'
 
 var req = http.get(options, function(res) {
 
@@ -22,23 +35,12 @@ var req = http.get(options, function(res) {
   }).on('end', function() {
    var body = Buffer.concat(bodyChunks);
     var json =JSON.parse(body);
-    for (var i =0; i < json.articles.length;  i++) {
-         console.log('Title: ' + json.articles[i].title);
-     console.log('Description: ' + json.articles[i].description);
-       console.log('UrlToImage: ' + json.articles[i].urlToImage);
-       
-       if (isFootballnews(json.articles[i])){
-        console.log(json.articles[i].url);
+    console.log(json.articles.length);
 
-       }
+    api.updateArticles(json.articles, function(err, result) {});
 
-        
-
-    }
-
-   
      
-    
+    // ...and/or process the entire body here.
  });
 });
 
@@ -61,35 +63,16 @@ var req = http.get(options, function(res) {
 
 //}
 
-function isFootballnews(article){
- // console.log(article);
-  var MyFilter = ["football","soccer","championships","champions","playoff","league","goals"];
-  for(var i = 0; i < MyFilter.length;i++){
-    if (article.title.indexOf(MyFilter[i]) != -1 || article.description.indexOf(MyFilter[i]) != -1 ) {
-      console.log(MyFilter[i]);
-      return true;
-
-    }
- 
-
-
-  return false;
-}
-
-
-
-
-
-
 
 
 
 
 
 var CronJob = require('cron').CronJob;
+var api = new todosAPI();
 var job = new CronJob('*/8 * *  * * *', function() {
       console.log('GetNews');
-       GetNews();
+       GetNews(api);
 
       
 
