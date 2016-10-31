@@ -43,3 +43,9 @@ There are two backend processes:
 3) Connect Express and user webapp to serve articles when a `GET` request is made and to add articles when a `POST` request is made
 4) Create a long running process (`daemon`) that runs all the time and is checking for new articles
 5) When the JSON objects we are returning are more defined we will build the Angular frontend 
+
+### Frontend Sketch
+![Front end sketch](https://github.com/tarektarho/FitNews/blob/master/FrontEnd%20And%20BackEnd%20sketch/frontEnd1.jpg?raw=true)
+
+### Backend Sketch
+![Back end sketch](https://github.com/tarektarho/FitNews/blob/master/FrontEnd%20And%20BackEnd%20sketch/backEnd1.jpg)
