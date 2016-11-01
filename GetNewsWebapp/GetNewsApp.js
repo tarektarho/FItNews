@@ -8,7 +8,7 @@ var source = 'talksport';
 var options = {
   host: 'www.newsapi.org',
   path: '/v1/articles?source=talksport&sortBy=top&apiKey=2dee9ef71f004d17943268eaaa57e2a4'
-  ''
+  
 
 };
 function GetNews(api){
@@ -28,26 +28,24 @@ var req = http.get(options, function(res) {
  // console.log('HEADERS: ' + JSON.stringify(res.headers));
 
   // Buffer the body entirely for processing as a whole.
-  var bodyChunks = [];
-  res.on('data', function(chunk) {
-    // You can process streamed parts here...
-    bodyChunks.push(chunk);
-  }).on('end', function() {
-   var body = Buffer.concat(bodyChunks);
-    var json =JSON.parse(body);
-    console.log(json.articles.length);
+    var bodyChunks = [];
+    res.on('data', function(chunk) {
+      // You can process streamed parts here...
+          bodyChunks.push(chunk);
+      }).on('end', function() {
+       var body = Buffer.concat(bodyChunks);
+        var json =JSON.parse(body);
+        console.log(json.articles.length);
 
-    api.updateArticles(json.articles, function(err, result) {});
+        api.updateArticles(json.articles, function(err, result) {});
 
-     
-    // ...and/or process the entire body here.
- });
-});
+     });
+    });
 
-	req.on('error', function(e) {
-  console.log('ERROR: ' + e.message); 
-});
-}
+    	req.on('error', function(e) {
+      console.log('ERROR: ' + e.message); 
+    });
+    }
 
 
 
@@ -62,11 +60,6 @@ var req = http.get(options, function(res) {
  
 
 //}
-
-
-
-
-
 
 var CronJob = require('cron').CronJob;
 var api = new todosAPI();

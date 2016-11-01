@@ -1,1 +1,4 @@
-var myApp = angular.module('myApp',['ngRoute']);
+angular.module('newsApp', ['angular.filter'])
+.controller('newsController', ['$scope', 'news',newsController])
+
+.service('news', news );

@@ -1,21 +1,47 @@
-<!doctype html>
-<html lang="en">
+<html ng-app="newsApp">
 
 <head>
     <meta charset="UTF-8">
     <title>NewsApp</title>
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="css/style.css">
-	<script src="/bower_components/angular/angular.js"></script>
-	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="js/app.js"></script>
-
-    <script type='text/javascript'  src="..\GetNewsWebapp\GetNewsApp.js"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="lib/angular-1.5.7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.9/angular-filter.min.js"></script>
+    <script src=js/newsController.js></script>
+    <script src="js/services/news.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/directives/newsCard.js"></script>
+	
 </head>
-
 <body>
-  <h1> YOUR NEWS ARTICLES HERE </h1>
+
+<div class="container">
+  <h2 class="text-center">News</h2>
+  <ul class="nav nav-tabs" role="tablist">
+   
+  </ul>
+</div>
+
+    <div class="container">
+        </br>
+        <div ng-controller="newsController">
+            <div ng-repeat="new in news">
+              
+
+               <h1> {{ new.title }}</h1>
+                {{ news.Section }}
+                {{news.Type}}
+                <figure>
+                <img ng-src="{{ new.multimedia[3].url }}"/>
+                <figcaption>
+                  </figcaption>
+      </figure>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
