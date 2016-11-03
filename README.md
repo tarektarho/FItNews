@@ -1,4 +1,4 @@
-# FitNews
+# SportNews
 
 ### Project overview
 
