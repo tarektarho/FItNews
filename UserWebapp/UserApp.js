@@ -11,6 +11,13 @@ var api =  new todosAPI();
 
 app.use(bodyParser.json());
 
+app.all('/newsapp', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+
+
 
 app.get('/newsapp', function(request, response) {
     var id = request.params.id;
@@ -22,12 +29,14 @@ app.get('/newsapp', function(request, response) {
             response.end();
         } else {
             console.warn('Error in GET');
+             response.status(404)        // HTTP status 404: NotFound
+               .send('Not found');
         }
     });
 
 });
 
-// Insert a todo
+// Insert a  news
 app.post('/newsapp', function(request, response) {
 
 
@@ -71,7 +80,7 @@ app.delete('/newsapp/:id', function(request,response){
 
 })
 
-// Update a todo
+// Update a news
 app.put('/newsapp/:id', function(request, response) {
     var updateItem = request.body;
     var updateId = request.params.id; 

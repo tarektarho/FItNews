@@ -4,5 +4,7 @@ function news ($http) {
 
   this.getNews = function () {
     return $http.get(URL);
+    
   };
 }
+

@@ -14,7 +14,7 @@ var options = {
 function GetNews(api){
 
 if (source === 'talksport') {
-  source = 'bbc-sport';
+  source = 'fox-sports';
 }
 else {
   source = 'talksport';
@@ -24,7 +24,7 @@ options.path = '/v1/articles?source=' + source + '&sortBy=top&apiKey=2dee9ef71f0
 
 var req = http.get(options, function(res) {
 
- // console.log('STATUS: ' + res.statusCode);
+  //console.log('STATUS: ' + res.statusCode);
  // console.log('HEADERS: ' + JSON.stringify(res.headers));
 
   // Buffer the body entirely for processing as a whole.
@@ -36,7 +36,6 @@ var req = http.get(options, function(res) {
        var body = Buffer.concat(bodyChunks);
         var json =JSON.parse(body);
         console.log(json.articles.length);
-
         api.updateArticles(json.articles, function(err, result) {});
 
      });
@@ -49,22 +48,22 @@ var req = http.get(options, function(res) {
 
 
 
-//function isSportnews(articles){
- //var MyFilter = ["football","soccer","championships","champions","playoff","league","goals"];
-  //for (var i = 0; i < MyFilter.length; i++){
-    //if (article title == MyFilter ){
+/*function isSportnews(articles){
+ var MyFilter = ["football","soccer","championships","champions","playoff","league","goals"];
+  for (var i = 0; i < MyFilter.length; i++){
+    if (article.title == MyFilter ){
 
-    //}
-    //console.log(MyFilter[i]);
- //}
+    }
+    console.log(MyFilter[i]);
+ }
  
 
-//}
+}*/
 
 var CronJob = require('cron').CronJob;
 var api = new todosAPI();
 var job = new CronJob('*/8 * *  * * *', function() {
-      console.log('GetNews');
+      console.log('Geting News..');
        GetNews(api);
 
       

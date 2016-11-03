@@ -1,1 +1,19 @@
-/* Your CSS styles here */
+.title{
+	font-size: 30px;
+}
+.author{
+	font-size: 25px;
+}
+.description{
+	font-size: 20px;
+	margin-bottom: : 1%;
+
+	}
+	.pic{
+		margin-top:1%;
+	}
+
+
+body{
+	 text-align: center;
+}
