@@ -1,50 +1,42 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var mongo = require('mongodb').MongoClient;
-var todosAPI = require('../GetNewsWebapp/todosAPI').todosAPI;
-var db;
+var todosAPI = require('../GetNewsWebapp/todosAPI');
 
 
 var app = express();
 
 
-var collection = null; 
-mongo.connect('mongodb://localhost:27017/newsapp', function(err, db) {
-    if (!err) {
-
-        collection = db.collection('news');
-        console.log('Database is connected ...');
-    } else {
-        console.warn('Error connecting database ...');
-    }
-
-});
-
-
-
-
-console.log(collection);
+var api =  new todosAPI();
 
 app.use(bodyParser.json());
+
+app.all('/newsapp', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+
 
 
 app.get('/newsapp', function(request, response) {
     var id = request.params.id;
 
-    var rows = todosAPI.getNewsapp(collection, id,   function(err, documents) {
+    var rows = api.getNewsapp(id,   function(err, documents) {
         if (!err) {
             console.log('Documents received by get: ', documents);
             response.json(documents);
             response.end();
         } else {
             console.warn('Error in GET');
+             response.status(404)        // HTTP status 404: NotFound
+               .send('Not found');
         }
     });
 
 });
 
-// Insert a todo
+// Insert a  news
 app.post('/newsapp', function(request, response) {
 
 
@@ -55,7 +47,7 @@ app.post('/newsapp', function(request, response) {
 
 
 
-      var inserted = todosAPI.insertNewsapp(collection,insertItem, function(err, documents) {
+      var inserted = api.insertNewsapp(insertItem, function(err, documents) {
         if (!err) {
             console.log('Documents Insert by post' , documents);
             response.json(documents);
@@ -70,32 +62,32 @@ app.post('/newsapp', function(request, response) {
 
 // Delete  news
 app.delete('/newsapp/:id', function(request,response){
-	var ItemId = request.params.id;
-	
-	if (!ItemId) return response.status(404).end();
-	todosAPI.deleteNewsapp(collection, ItemId, function(err, Item){
-		if (!err) {
-			console.log('item Delete', ItemId)
-			response.status(200).end();
+    var ItemId = request.params.id;
+    
+    if (!ItemId) return response.status(404).end();
+    api.deleteNewsapp(ItemId, function(err, Item){
+        if (!err) {
+            console.log('item Delete', ItemId)
+            response.status(200).end();
 
 
-		} else{
-			console.log("Delete Error");
-			response.end();
-		}
-	})
+        } else{
+            console.log("Delete Error");
+            response.end();
+        }
+    })
 
 
 })
 
-// Update a todo
+// Update a news
 app.put('/newsapp/:id', function(request, response) {
     var updateItem = request.body;
     var updateId = request.params.id; 
     console.log("Tring to updet:",updateItem);
 
    
-    var updateFunction = todosAPI.updateNewsapp(collection, updateItem, updateId, function(err, documents) {
+    var updateFunction = api.updateNewsapp(updateItem, updateId, function(err, documents) {
         if (!err){
             console.log('documents updet',documents);
             response.json(documents);
