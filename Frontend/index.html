@@ -20,12 +20,14 @@
 </head>
 <body>
 
-<div class="jumbotron">
+<div class="text-center">
       <div class="container">
-        <h1>News App</h1>
+      <div class="row">
+    <div class="col-sm-4">
+        
       </div>
     </div>
-    
+    <h1 class="page-header">News App</h1>
 
         <div ng-controller="newsController">
 
@@ -38,9 +40,9 @@
                <h3 class="author">{{ article.author}} </h3>
               
               
-               <img ng-src="{{ article.urlToImage }}"/>
+               <img class="img-thumbnail" ng-src="{{ article.urlToImage }}"/>
                 <h4 class="description"> {{ article.description}}</h4>
-          <p class="pic"><a class="btn btn-default" href="{{ article.url }}" role="button">Click Here For More Info &raquo;</a></p>
+          <p class="pic"><a class="btn btn-info" ng-href="{{ article.url }}" role="button" target="_blank">Click Here For More Info &raquo;</a></p>
         </div>
      
       
@@ -53,6 +55,8 @@
         
               
             
+            </div>
+            </div>
             </div>
         </div>
     </div>

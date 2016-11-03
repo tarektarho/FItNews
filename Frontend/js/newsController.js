@@ -8,13 +8,23 @@ function newsController($scope, news) {
             item.publishedAt = item.publishedAt.substr(0, 10);
 
 
+
+
         });
+            
+              $scope.TimedRefresh = function(t) {
+            console.log(t);
+            setTimeout("location.reload(true);", t*60);
+    }
+
+     $scope.TimedRefresh(50);
 
     }, function (error) {
         console.error(error);
         
     });
+
 }
 
 
-
+  

@@ -14,7 +14,7 @@ var options = {
 function GetNews(api){
 
 if (source === 'talksport') {
-  source = 'fox-sports';
+  source = 'bbc-sport';
 }
 else {
   source = 'talksport';
