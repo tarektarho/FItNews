@@ -4,7 +4,7 @@ function newsController($scope, news) {
         $scope.news = response.data;
        
         angular.forEach($scope.news, function (item) {
-        	
+            
             item.publishedAt = item.publishedAt.substr(0, 10);
 
 
@@ -17,7 +17,7 @@ function newsController($scope, news) {
             setTimeout("location.reload(true);", t*60);
     }
 
-     $scope.TimedRefresh(50);
+     $scope.TimedRefresh(500);
 
     }, function (error) {
         console.error(error);
@@ -25,3 +25,6 @@ function newsController($scope, news) {
     });
 
 }
+
+
+  
