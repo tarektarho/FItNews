@@ -13,7 +13,7 @@ var options = {
 function GetNews(api){
 
 if (source === 'talksport') {
-  source = 'espn';
+  source = 'bbc-sport';
 }
 else {
   source = 'talksport';
