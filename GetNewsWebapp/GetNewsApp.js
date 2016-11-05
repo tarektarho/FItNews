@@ -45,8 +45,6 @@ var req = http.get(options, function(res) {
     });
     }
 
-
-
 /*function isSportnews(articles){
  var MyFilter = ["football","soccer","championships","champions","playoff","league","goals"];
   for (var i = 0; i < MyFilter.length; i++){
