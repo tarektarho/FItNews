@@ -1,22 +1,116 @@
-<!doctype html>
-<html lang="en">
+<html ng-app="newsApp">
 
 <head>
     <meta charset="UTF-8">
+    <!--  <meta http-equiv="refresh" content="5" />-->
     <title>NewsApp</title>
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="css/style.css">
-	<script src="/bower_components/jquery/dist/jquery.js"></script>
-	<script src="/bower_components/angular/angular.js"></script>
-	<script src="/bower_components/angular-route/angular-route.js"></script>
-	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-
-    <script type='text/javascript'  src="..\GetNewsWebapp\GetNewsApp.js"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+   
 </head>
-
 <body>
-  <h1> YOUR NEWS ARTICLES HERE </h1>
+      <nav class="navbar navbar-default  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="file:///C:/Users/HackYourFuture/Desktop/SportNews/Frontend/index.html">Sport News</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="file:///C:/Users/HackYourFuture/Desktop/SportNews/Frontend/index.html">Home</a></li>
+            <li><a role="button" target="_blank" href="https://github.com/tarektarho/SportNews/blob/master/README.md">About</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a role="button" target="_blank" href="https://github.com/tarektarho" >Github</a></li>
+                <li><a role="button" target="_blank" href="https://www.facebook.com/tarek.tarho.56">FaceBook</a></li>
+                <li><a role="button" target="_blank" href="https://twitter.com/TTarho">Twitter</a></li>
+            </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a role="button" target="_blank" href="https://www.yahoo.com/news/weather">Weather</a></li>
+            <li><a role="button" target="_blank" href="http://www.bbc.com/earth/world">Earth</a></li>
+            <li ><a role="button" target="_blank" href="https://www.youtube.com/channel/UCW6-BQWFA70Dyyc7ZpZ9Xlg">YouTube Sport News <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+ 
+        <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Top Stories<span class="sr-only">(current)</span></a></li>
+            <li><a href="#">From Around the Web</a></li>
+            <li><a href="#">Scores, Results & Rankings</a></li>
+            <li><a href="#">Featured</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">How to get into Tennis</a></li>
+            <li><a href="">Live Match</a></li>
+            <li><a href="">Champions League</a></li>
+            <li><a href="">BasketBall</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">HandBall</a></li>
+            <li><a href="">Water Polo</a></li>
+            <li><a href="">BaseBall</a></li>
+          </ul>
+           <ul class="nav nav-sidebar">
+            <li><a href="">Hockey</a></li>
+            <li><a href="">Explore The Sport News</a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+           
+          </ul>
+          
+
+        </div>
+ 
+        <div ng-controller="newsController" >
+             
+             <div class="container">
+             <div class="row">
+
+
+            <div id="page" ng-repeat="article in news"    class="text-center"  class="col-xs-6 col-lg-12" >
+          
+             
+              <h4> {{ article.author}} </h4>
+
+                <p> {{ article.title }}</p>
+               <img  class="img-thumbnail rounded mx-auto d-block"  alt="Responsive image" ng-src="{{ article.urlToImage }}" />
+                   
+                  <p class="text-muted"> {{ article.publishedAt }}</p>
+
+                  <p > {{ article.description}}</p>
+                  <a  class="btn btn-info" ng-href="{{ article.url }}" role="button" target="_blank">Click Here For More Info &raquo;</a>
+
+                  
+                 
+</div>
+       
+        </div>
+        </div>
+        </div>
+        
+     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="lib/angular-1.5.7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.9/angular-filter.min.js"></script>
+    <script src=js/newsController.js></script>
+    <script src="js/services/news.js"></script>
+    <script src="js/app.js"></script>
+    
 </body>
 
 </html>
