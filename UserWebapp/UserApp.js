@@ -17,7 +17,7 @@ app.all('/newsapp', function(req, res, next) {
   next();
  });
 
-
+app.use(express.static('../Frontend'));
 
 app.get('/newsapp', function(request, response) {
     var id = request.params.id;
